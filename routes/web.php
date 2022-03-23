@@ -51,7 +51,7 @@ Route::group([
         //clients
 
         Route::get('order/', [orderController::class, 'index'])->middleware(['permission:read_orders']);
-        Route::get('order/create/{client}', [orderController::class, 'create'])->middleware(['permission:create_orders']);
+        Route::get('order/create/{client}/{order}', [orderController::class, 'create'])->middleware(['permission:create_orders']);
         Route::get('add-order/create', [orderController::class, 'addOrder'])->middleware(['permission:create_orders']);
         Route::post('order/store', [orderController::class, 'store'])->middleware(['permission:create_orders']);
         Route::get('order/edit/{order}', [orderController::class, 'edit'])->middleware(['permission:update_orders']);

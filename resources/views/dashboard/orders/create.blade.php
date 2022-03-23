@@ -95,6 +95,7 @@
         <div class="card-body pt-0" id="print-table">
         <form id="fatwra" action="{{url("dashboard/order/store")}}" method="post">
             @csrf
+            <input type="hidden" name="order" value="{{$order->id}}">
             @foreach ($maps as $map)
 
             <table class="table table-{{$map}} d-none">

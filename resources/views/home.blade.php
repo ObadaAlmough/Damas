@@ -17,7 +17,7 @@
                     {{ __('You are logged in!') }}
                     @foreach ($orders as $order)
                     <h1>{{$order->client_id}}</h1>
-                    <a href="{{url("dashboard/order/create/{$order->client_id}")}}" class="btn btn-primary btn-sm">
+                    <a href="{{url("dashboard/order/create/{$order->client_id}/{$order->id}")}}" class="btn btn-primary btn-sm">
                     {{__("web.add")}}
                     </a>
 

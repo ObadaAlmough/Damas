@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\dashboard;
 
 use App\Models\order;
+use App\Models\Client;
+use App\Models\Product;
 use App\Models\district;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Client;
-use App\Models\Product;
+
+
 
 class orderController extends Controller
 {
@@ -30,18 +32,29 @@ class orderController extends Controller
         return view('home',compact('orders'));
     }//end of addOrder
 
-    public function create(Client $client)
+    public function create(Client $client , order $order)
     {
         $district = district::all();
         $products = Product::orderBy('name','asc')->get();
 
-        return view('dashboard.orders.create', compact('district','products','client'));
+        return view('dashboard.orders.create', compact('district','products','client','order'));
     } //end of creat
+
+
 
     public function store(Request $request)
     {
-        return $request->all();
+
+        $request->validate([
+            'products' => 'required|array',
+        ]);
+        $order = $request->order;
+        $order = order::first('id',$order);
+        dd( $order->products());
+        $order->products()->attach($request->products);
     } //end of store
+
+
 
     public function edit(order $order)
     {
