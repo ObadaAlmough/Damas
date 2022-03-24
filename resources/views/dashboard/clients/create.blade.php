@@ -140,7 +140,12 @@
                                                     <option label="Choose one">
                                                     </option>
                                                     @foreach ($district as $district )
-                                                    <option value="{{$district->id}}" {{old('district')==$district->name ? 'selected' : ''}}>{{$district->name}} </option>
+                                                    <option
+                                                     value="{{$district->id}}"
+                                                     {{'Hadayek El-Mohandiseen'==$district->name ? 'selected' : ''}}
+                                                     {{old('district')==$district->name ? 'selected' : ''}}>
+                                                        {{$district->name}}
+                                                    </option>
 
                                                     @endforeach
                                                 </select>

@@ -10,7 +10,10 @@ class Client extends Model
     use HasFactory;
     public $guarded =[];
     // public $append =['address'];
-
+    public function order()
+    {
+        return $this->hasMany(order::class);
+    }
 
     public function district()
     {
@@ -22,6 +25,13 @@ class Client extends Model
         $flat = $this->flat ? '/'. $this->flat : '';
 
         return $this->Building . $flat . $this->district->name . $nearest_landmark ;
+    }
+
+    public function Bulding(){
+
+        $flat = $this->flat ? '/'. $this->flat : '';
+
+        return $this->Building . $flat . '  ' . $this->district->name ;
     }
 
 }

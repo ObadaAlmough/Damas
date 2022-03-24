@@ -8,6 +8,8 @@
 <link href="{{ URL::asset('assets/plugins/pickerjs/picker.min.css') }}" rel="stylesheet">
 <!-- Internal Spectrum-colorpicker css -->
 <link href="{{ URL::asset('assets/plugins/spectrum-colorpicker/spectrum.css') }}" rel="stylesheet">
+<!--Internal  Font Awesome -->
+<link href="{{URL::asset('assets/plugins/fontawesome-free/css/all.min.css')}}" rel="stylesheet">
 @endsection
 @section('page-header')
 <!-- breadcrumb -->
@@ -48,7 +50,7 @@
 
                 </div>
             </nav>
-            <div class="tab-content m-2" id="nav-tabContent">
+            <div class="tab-content m-2 overflow-auto" style="height: 60vh" id="nav-tabContent ">
                 @foreach ($maps as $index=>$map)
 
                 <div class="tab-pane fade {{$index == 0 ? 'show active' : ''}}" id="{{$map}}" role="tabpanel" aria-labelledby="{{$map}}-tab">
@@ -56,12 +58,16 @@
                         @foreach ($products as $product)
                         <div class="m-1 row" style="width: 22%">
 
-                            <button id="product-{{$product->id}}-{{$map}}" class="add-product-btn btn btn-{{$map == 'landry' ? 'dark' : 'primary'}}-gradient btn-block" data-id="{{$product->id}}" data-name_lan="{{$product->name_lan}}" data-map="{{$map}}">{{$product->name}}</button>
+                            <button id="product-{{$product->id}}-{{$map}}" class="add-product-btn btn btn-{{$map == 'landry' ? 'dark' : 'primary'}}-gradient btn-block"
+                                data-id="{{$product->id}}"
+                                data-name_lan="{{$product->name_lan}}"
+
+                                data-map="{{$map}}">{{$product->name}}</button>
 
                             <select name="price" id="" class="price w-100 btn btn-{{$map == 'landry' ? 'dark' : 'primary'}}-gradient ">
                                 {{-- for landry --}}
                                 @foreach ($landrys as $landry)
-                                <option value="{{$product->price[$map."_".$landry] ?? 0 }}" class="text-dark" {{$landry == $client->landry ? 'selected' :  ''}} {{$product->price[$map."_".$landry]?? 'disabled'}}>
+                                <option value="{{$product->price[$map."_".$landry] ?? 0 }}" name="{{$map."_".$landry ?? 0 }}" class="text-dark" {{$landry == $client->landry ? 'selected' :  ''}} {{$product->price[$map."_".$landry]?? 'disabled'}}>
                                     ( {{$product->price[$map."_".$landry] ?? 0 }} )
                                     {{$landry}}
                                 </option>
@@ -92,25 +98,38 @@
         <div class="card-header">
 
         </div>
-        <div class="card-body pt-0" id="print-table">
-        <form id="fatwra" action="{{url("dashboard/order/store")}}" method="post">
-            @csrf
-            <input type="hidden" name="order" value="{{$order->id}}">
-            @foreach ($maps as $map)
+        <div class="card-body pt-0 overflow-auto" id="print-table">
+            <form id="fatwra" action="{{url("dashboard/order/store")}}" method="post">
+                @csrf
+                <input type="hidden" name="order" value="{{$order->id}}">
+                @foreach ($maps as $map)
+                <div class="table table-{{$map}} d-none">
 
-            <table class="table table-{{$map}} d-none">
-                <thead>
-                    <tr>
-                        <th>{{__("web.$map")}}</th>
-                    </tr>
-                </thead>
-                <tbody class="order-{{$map}} order-list">
+                    <div class="d-flex justify-content-between">
+                        <h4>{{$client->name??''}}</h4>
+                        <h4>{{$client->Bulding()??''}}</h4>
 
-                </tbody>
-            </table>
-            @endforeach
-        </form>
-    </div>
+                    </div>
+
+                    <p class="w-100 text-center">{{$client->condition}}<br>{{$client->work_notes??''}}</p>
+                    <p class="var-{{$map}} h1"></p>
+
+                </div>
+                {{-- //heder --}}
+
+                <table class="table table-{{$map}} d-none ">
+                    <thead>
+                        <tr>
+                            <th>{{__("web.$map")}}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="order-{{$map}} order-list">
+
+                    </tbody>
+                </table>
+                @endforeach
+            </form>
+        </div>
         <button type="submit" name="" id="add-order-form-btn" class="btn btn-warning-gradient disabled my-2" href="#" role="button">
             Print <span class="total-price"></span>Eg
         </button>
@@ -147,6 +166,8 @@
 <script src="{{ URL::asset('assets/js/form-elements.js') }}"></script>
 <!--Internal  printThis.js -->
 <script src="{{ URL::asset('assets/plugins/printThis/printThis.js') }}"></script>
+
+
 {{-- order  --}}
 <script src="{{ URL::asset('assets/js/order.js') }}"></script>
 {{-- print --}}
@@ -155,17 +176,15 @@
 
         //print order
         $(document).on('click', '#add-order-form-btn', function(e) {
-        e.preventDefault();
+            e.preventDefault();
 
             $(".remove-product-btn").remove();
             $(".product-price").remove();
             $(`#print-table`).printThis({
-                importCSS: false,
-                header: "<h1>Look at all of my kitties!</h1>",
-                footer: "<h1>Look at all of my kitties!</h1>",
 
 
-                afterPrint:function(){
+
+                afterPrint: function() {
                     $('#fatwra').submit();
                 }
             });

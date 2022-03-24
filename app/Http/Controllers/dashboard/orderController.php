@@ -44,21 +44,42 @@ class orderController extends Controller
 
     public function store(Request $request)
     {
-
-        $request->validate([
+                $request->validate([
             'products' => 'required|array',
+            'quantity' => 'required|array',
+            'price' => 'required|array',
+            'map' => 'required|array',
+
+
         ]);
+        $total_price = 0;
+        // dd($request->all());
         $order = $request->order;
         $order = order::first('id',$order);
-        dd( $order->products());
-        $order->products()->attach($request->products);
+        for ($i=0; $i < count($request->products); $i++) {
+
+
+            $order->products()->attach($request->products[$i],['quantity'=> $request->quantity[$i],'price' => $request->price[$i],'map' => $request->map[$i]]);
+            $total_price += $request->price[$i] * $request->quantity[$i];
+        }
+
+
+
+        $order->update([
+            'total_price' => $total_price,
+            'states' => 'equip',
+
+        ]);
+
     } //end of store
 
 
 
-    public function edit(order $order)
+    public function edit(Client $client , order $order)
     {
-        # code...
+        $district = district::all();
+        $products = Product::orderBy('name','asc')->get();
+        return view('dashboard.orders.edit',compact('district','products','client','order'));
     } //end of edit
 
     public function update(Request $request, order $order)

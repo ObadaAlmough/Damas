@@ -103,7 +103,7 @@
 
                                     </form>
 
-                                    
+
 
                                 </td>
 
@@ -175,8 +175,7 @@
                 }
                 , function() {
                     id = id_delete
-                    location.href = "{{url("
-                    dashboard / client / delete / ")}}" + '/' + id;
+                    location.href = "{{url("dashboard/client/delete/")}}" + '/' + id;
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                 });
         });

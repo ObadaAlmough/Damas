@@ -6,6 +6,7 @@ $(document).ready(function () {
         e.preventDefault();
         var name_lan = $(this).data('name_lan');
         var map = $(this).data('map');
+        // var landry = $(this).data('landry');
         var id = $(this).data('id');
         var price = $(this).closest('div').find('.price').val();
 
@@ -14,14 +15,26 @@ $(document).ready(function () {
         var html =
             `<tr>
                 <td>${name_lan}</td>
-                <td><input type="number" name="products[${id}][quantity]" data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
+                <td>
+                <input type="hidden" name="price[]" value="${price}">
+                <input type="hidden" name="map[]" value="${map}">
+                <input type="hidden" name="products[]" value="${id}">
+                <input type="number" name="quantity[]" data-price="${price}" class="form-control input-sm product-quantity" min="1" value="1"></td>
                 <td class="product-price">${price}</td>
                 <td><button class="btn btn-danger btn-block remove-product-btn" data-id="${id}" data-map="${map}"><span class="fa fa-trash"></span></button></td>
             </tr>`;
 
+            $('.table-fatwra').find('tbody').empty()
+
         $(`.order-${map}`).append(html);
 
+        if (map == 'landry') {
+            $(`.var-iron`).html('iron')
+        }
+        if (map == 'iron') {
+            $(`.var-landry`).html('landry')
 
+        }
         //to calculate total price
         calculateTotal();
         $(`.table-${map}`).removeClass('d-none');

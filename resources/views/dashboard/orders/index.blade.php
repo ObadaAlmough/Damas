@@ -22,7 +22,7 @@
                 /<a class="link" href="{{url('/')}}">{{__('web.home')}}</a></span>
         </div>
     </div>
-{{-- //noty --}}
+    {{-- //noty --}}
 </div>
 <!-- breadcrumb -->
 @endsection
@@ -43,12 +43,12 @@
                             <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
                             <button class="btn btn-outline-success my-2 my-sm-0 form-control" type="submit">{{__('web.search')}}</button>
                         </form>
-                            <div class="m-2 my-sm-0 ">
-                                <a href="{{url('dashboard/order/create')}}" class="form-control btn btn-outline-primary " >
-                                    {{__("web.add")}}
-                                    </a>
-                            </div>
-                       </div>
+                        <div class="m-2 my-sm-0 ">
+                            <a href="{{url('dashboard/order/create')}}" class="form-control btn btn-outline-primary ">
+                                {{__("web.add")}}
+                            </a>
+                        </div>
+                    </div>
 
 
                 </div>
@@ -64,6 +64,7 @@
                                 <th>{{__("web.adress")}}</th>
                                 <th>{{__("web.condition")}}</th>
                                 <th>{{__("web.work_notes")}}</th>
+                                <th>{{__("web.states")}}</th>
                                 <th>{{__("web.action")}}</th>
                             </tr>
                         </thead>
@@ -71,20 +72,16 @@
                             @foreach ($orders as $index=>$order)
                             <tr>
                                 <th scope="row">{{$index+1}}</th>
-                                <td>{{$order->name}}</td>
-                                <td>{{$order->phone}}</td>
-                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->work_notes}}</td>
-                                <td>{{$order->condition}}</td>
-
-                                <td  style="width: 10rem" class="d-inline-block text-truncate">{{$order->address()}}</td>
+                                <td>{{$order->client->name}}</td>
+                                <td>{{$order->client->phone}}</td>
+                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->Bulding()}}</td>
+                                <td>{{$order->client->condition}}</td>
+                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->work_notes}}</td>
+                                <td>{{$order->states}}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{url("dashboard/order/edit/$order->id")}}" role="button">{{__('web.edit')}}</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url("dashboard/order/edit/$order->client_id/$order->id")}}" role="button">{{__('web.edit')}}</a>
                                     <a class="btn btn-danger btn-sm swal-warning" href="javascript:void(0)" data-id="{{$order->id}}" role="button">{{__('web.delete')}}</a>
-                                    <a
-                                    data-address="{{$order->address()}}"
-                                    data-name="{{$order->name}}"
-                                    data-phone="{{$order->phone}}"
-                                     class="btn btn-success btn-sm swal-basic"  role="button">{{__('web.Show')}}</a>
+                                    <a data-address="{{$order->client->Bulding()}}" data-name="{{$order->client->name}}" data-phone="{{$order->phone}}" class="btn btn-success btn-sm swal-basic" role="button">{{__('web.Show')}}</a>
 
 
 
@@ -128,48 +125,47 @@
     $(function(e) {
 
         /* show */
-	$('.swal-basic').on('click', function () {
-        var name = $(this).data('name');
-        var address = $(this).data('address');
-        var phone = $(this).data('phone');
+        $('.swal-basic').on('click', function() {
+            var name = $(this).data('name');
+            var address = $(this).data('address');
+            var phone = $(this).data('phone');
 
-        swal(
-			{
-				title: name,
-				text: address,
+            swal({
+                title: name
+                , text: address,
 
-			}
-		)
+            })
 
-	});
+        });
 
 
-    var id ="";
-    //Warning Message
-	$('.swal-warning').click(function () {
-        var id_delete = $(this).data('id');
+        var id = "";
+        //Warning Message
+        $('.swal-warning').click(function() {
+            var id_delete = $(this).data('id');
 
-        swal({
-            title: "Are you sure?",
-            text: "Your will not be able to recover this imaginary file!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonClass: "btn btn-danger",
-            confirmButtonText: "Yes, delete it!",
-            closeOnConfirm: false
-		},
-		function(){
-            id = id_delete
-                location.href = "{{url("dashboard/order/delete/")}}"+ '/' + id;
-		  swal("Deleted!", "Your imaginary file has been deleted.", "success");
-		});
-	});
-
+            swal({
+                    title: "Are you sure?"
+                    , text: "Your will not be able to recover this imaginary file!"
+                    , type: "warning"
+                    , showCancelButton: true
+                    , confirmButtonClass: "btn btn-danger"
+                    , confirmButtonText: "Yes, delete it!"
+                    , closeOnConfirm: false
+                }
+                , function() {
+                    id = id_delete
+                    location.href = "{{url("
+                    dashboard / order / delete / ")}}" + '/' + id;
+                    swal("Deleted!", "Your imaginary file has been deleted.", "success");
+                });
+        });
 
 
 
 
-});
+
+    });
 
 </script>
 {{-- //model --}}
@@ -180,7 +176,7 @@
 <script src="{{URL::asset('assets/plugins/notify/js/notifIt.js')}}"></script>
 {{-- <script src="{{URL::asset('assets/plugins/notify/js/notifit-custom.js')}}"></script> --}}
 <script>
-    @if (session('success')) {
+    @if(session('success')) {
 
 
         function not14() {
@@ -194,6 +190,7 @@
         not14()
     }
     @endif
+
 </script>
 {{-- //NOTY --}}
 @endsection

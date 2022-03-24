@@ -36,7 +36,7 @@ class clientController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'nullable|string',
+            'name' => 'nullable|string|min:1|max:15',
             "phone" =>  "nullable|string",
             "deliver_notes" =>  'nullable|string',
             "work_notes" =>  'nullable|string',
@@ -56,13 +56,14 @@ class clientController extends Controller
     {
         $district = district::all();
 
+
         return view('dashboard.clients.edit', compact('client','district'));
     } //end of edit
 
     public function update(Request $request, Client $client)
     {
         $request->validate([
-            'name' => 'nullable|string',
+            'name' => 'nullable|string|min:1|max:15',
             "phone" =>  "nullable|string",
             "deliver_notes" =>  'nullable|string',
             "work_notes" =>  'nullable|string',
