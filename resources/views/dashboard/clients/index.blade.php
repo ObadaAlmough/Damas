@@ -90,8 +90,10 @@
 
                                 <td style="width: 10rem" class="d-inline-block text-truncate">{{$client->address()}}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" href="{{url("dashboard/client/edit/$client->id")}}" role="button">{{__('web.edit')}}</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url("dashboard/client/edit/$client->id")}}" role="button">{{__('web.show')}}</a>
                                     <a class="btn btn-danger btn-sm swal-warning" href="javascript:void(0)" data-id="{{$client->id}}" role="button">{{__('web.delete')}}</a>
+
+
                                     <a data-address="{{$client->address()}}" data-name="{{$client->name}}" data-phone="{{$client->phone}}" class="btn btn-success btn-sm swal-basic" role="button">{{__('web.Show')}}</a>
                                     <button type="submit" value="submit" form="form-{{$client->id}}" class="btn btn-primary btn-sm">
                                         {{__("web.add")}}
@@ -102,16 +104,9 @@
                                         <input type="hidden" name="client_id" value="{{$client->id}}">
 
                                     </form>
-
-
-
                                 </td>
-
-
                             </tr>
-
                             @endforeach
-
                         </tbody>
                     </table>
                     {{-- end of table --}}
@@ -158,7 +153,6 @@
 
         });
 
-
         var id = "";
         //Warning Message
         $('.swal-warning').click(function() {
@@ -179,11 +173,6 @@
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                 });
         });
-
-
-
-
-
     });
 
 </script>

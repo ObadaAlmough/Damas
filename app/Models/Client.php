@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Client extends Model
 {
@@ -32,6 +33,10 @@ class Client extends Model
         $flat = $this->flat ? '/'. $this->flat : '';
 
         return $this->Building . $flat . '  ' . $this->district->name ;
+    }
+    
+    public function getCreatedAtAttribute($timestamp) {
+        return \Carbon\Carbon::parse($timestamp)->format('M d, Y');
     }
 
 }

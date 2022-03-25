@@ -95,30 +95,36 @@
 
         </div>
         <div class="card-body pt-0 overflow-auto" id="print-table">
-
-
-            {{dd($order->products())}}
             <form id="fatwra" action="{{url("dashboard/order/store")}}" method="post">
                 @csrf
                 <input type="hidden" name="order" value="{{$order->id}}">
 
                 @foreach ($maps as $map)
 
-                <div class="table table-{{$map}} table-fatwra d-none">
+                <div class="table table-{{$map}} table-fatwra
+                {{in_array($map,$maps_order)? '' : 'd-none'}}
+
+
+
+                "
+
+                >
 
                     <div class="d-flex justify-content-between">
                         <h4>{{$client->name??''}}</h4>
                         <h4>{{$client->Bulding()??''}}</h4>
-
                     </div>
 
                     <p class="w-100 text-center">{{$client->condition}}<br>{{$client->work_notes??''}}</p>
-                    <p class="var-{{$map}} h1"></p>
+                    <p class="var-{{$map}}"></p>
 
                 </div>
                 {{-- //heder --}}
 
-                <table class="table table-{{$map}} d-none ">
+                <table class="table table-{{$map}}
+                {{in_array($map,$maps_order)? '' : 'd-none'}}
+                
+                ">
                     <thead>
                         <tr>
                             <th>{{__("web.$map")}}</th>

@@ -29,10 +29,10 @@ $(document).ready(function () {
         $(`.order-${map}`).append(html);
 
         if (map == 'landry') {
-            $(`.var-iron`).html('iron')
+            $(`.var-iron`).html('landry')
         }
         if (map == 'iron') {
-            $(`.var-landry`).html('landry')
+            $(`.var-landry`).html('iron')
 
         }
         //to calculate total price

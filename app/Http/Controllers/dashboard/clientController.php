@@ -2,16 +2,19 @@
 
 namespace App\Http\Controllers\dashboard;
 
+use App\Models\order;
 use App\Models\Client;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\district;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class clientController extends Controller
 {
     public function index(Request $request)
     {
-    $district = district::all();
+        $district = district::all();
 
         $clients = Client::where(function ($q) use ($request) {
 
@@ -21,10 +24,10 @@ class clientController extends Controller
                     ->orWhere('Building', 'like', '%' . $request->search . '%')
                     ->orWhere('flat', 'like', '%' . $request->search . '%');
             });
-        })->when($request->district_id,function ($q) use ($request) {
-            $q->where('district_id',$request->district_id);
+        })->when($request->district_id, function ($q) use ($request) {
+            $q->where('district_id', $request->district_id);
         })->latest()->paginate(6);
-        return view('dashboard.clients.index', compact('clients','district'));
+        return view('dashboard.clients.index', compact('clients', 'district'));
     } //end of index
 
     public function create()
@@ -54,11 +57,39 @@ class clientController extends Controller
 
     public function edit(Client $client)
     {
-        $district = district::all();
+        $data['district'] = district::all();
+        $data['orders'] = order::where('client_id', $client->id)->whereMonth('created_at' ,Carbon::now()->year())->get();
+        $data['orderSum'] = order::where('client_id',$client->id)->select(
+            DB::raw('SUM(total_price) as sum')
+        )->get();
+        /* end sum */
 
+        foreach ($data['orders'] as $order) {
+            $data['sumProduct'] = 0 ;
+            $data['mapLandry'] = 0 ;
+            $data['mapIron'] = 0 ;
+            $data['mapOther'] = 0 ;
 
-        return view('dashboard.clients.edit', compact('client','district'));
+            foreach( $order->products as $product){
+                $data['sumProduct'] += $product->pivot->quantity;
+
+                if ($product->pivot->map == 'landry') {
+                    # code...
+                    $data['mapLandry'] += 1;
+                }elseif( $product->pivot->map == 'iron'){
+
+                    $data['mapIron'] += 1;
+                }else{$data['mapOther'] += 1;}
+            };
+
+            };
+        /* end of foreach find map */
+
+            return view('dashboard.clients.edit', compact('client'))->with($data);
+
     } //end of edit
+
+
 
     public function update(Request $request, Client $client)
     {

@@ -155,8 +155,7 @@
                 }
                 , function() {
                     id = id_delete
-                    location.href = "{{url("
-                    dashboard / order / delete / ")}}" + '/' + id;
+                    location.href = "{{url("dashboard/order/delete/")}}" + '/' + id;
                     swal("Deleted!", "Your imaginary file has been deleted.", "success");
                 });
         });

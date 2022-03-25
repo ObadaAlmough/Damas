@@ -98,7 +98,7 @@
         <div class="card-header">
 
         </div>
-        <div class="card-body pt-0 overflow-auto" id="print-table">
+        <div style="height: 50vh" class="card-body pt-0 overflow-auto" id="print-table" >
             <form id="fatwra" action="{{url("dashboard/order/store")}}" method="post">
                 @csrf
                 <input type="hidden" name="order" value="{{$order->id}}">
@@ -112,7 +112,7 @@
                     </div>
 
                     <p class="w-100 text-center">{{$client->condition}}<br>{{$client->work_notes??''}}</p>
-                    <p class="var-{{$map}} h1"></p>
+                    <p class="var-{{$map}}"></p>
 
                 </div>
                 {{-- //heder --}}
