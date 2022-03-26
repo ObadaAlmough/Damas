@@ -33,7 +33,7 @@
     <!--/div-->
 
     <!--div-->
-    <div class="col-xl-12">
+    <div class="col-xl-8">
         <div class="card">
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
@@ -81,6 +81,8 @@
                                 <td>
                                     <a class="btn btn-primary btn-sm" href="{{url("dashboard/order/edit/$order->client_id/$order->id")}}" role="button">{{__('web.edit')}}</a>
                                     <a class="btn btn-danger btn-sm swal-warning" href="javascript:void(0)" data-id="{{$order->id}}" role="button">{{__('web.delete')}}</a>
+                                    <a class="btn btn-danger btn-sm order-products" href="" data-method="get" data-url="{{url("dashboard/order/{$order->client->id}/{$order->id}")}}"  role="button">{{__('web.show')}}</a>
+
                                     <a data-address="{{$order->client->Bulding()}}" data-name="{{$order->client->name}}" data-phone="{{$order->phone}}" class="btn btn-success btn-sm swal-basic" role="button">{{__('web.Show')}}</a>
 
 
@@ -104,6 +106,21 @@
         </div><!-- bd -->
     </div>
     <!--/div-->
+     <!--div-->
+     <div class="col-xl-4">
+        <div class="card">
+            <div class="card-header pb-0">
+
+            </div>
+            <div class="card-body">
+                <div id="order-product-list">
+                    
+                </div>
+
+            </div><!-- bd -->
+        </div><!-- bd -->
+    </div>
+    <!--/div-->
 
 
 
@@ -118,6 +135,8 @@
 @section('js')
 <script src="{{URL::asset('assets/plugins/sweet-alert/sweetalert.min.js')}}"></script>
 <script src="{{URL::asset('assets/plugins/sweet-alert/jquery.sweet-alert.js')}}"></script>
+{{-- order  --}}
+<script src="{{ URL::asset('assets/js/order.js') }}"></script>
 <!-- Sweet-alert js  -->
 <script src="{{URL::asset('assets/plugins/sweet-alert/sweetalert.min.js')}}"></script>
 {{-- <script src="{{URL::asset('assets/js/sweet-alert.js')}}"></script> --}}

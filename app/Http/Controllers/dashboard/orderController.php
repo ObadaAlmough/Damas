@@ -113,4 +113,9 @@ class orderController extends Controller
         return back();
 
     } //end of delet
+
+    public function products(Client $client,Order $order)
+    {
+        return view('dashboard.orders._product',compact('order','client'));
+    }
 }

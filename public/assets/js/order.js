@@ -76,10 +76,9 @@ $(document).ready(function () {
 
     //list all order products
     $('.order-products').on('click', function (e) {
-
         e.preventDefault();
 
-        $('#loading').css('display', 'flex');
+        // $('#loading').css('display', 'flex');
 
         var url = $(this).data('url');
         var method = $(this).data('method');
@@ -88,7 +87,7 @@ $(document).ready(function () {
             method: method,
             success: function (data) {
 
-                $('#loading').css('display', 'none');
+                // $('#loading').css('display', 'none');
                 $('#order-product-list').empty();
                 $('#order-product-list').append(data);
 

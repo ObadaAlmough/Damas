@@ -71,7 +71,7 @@
                             {{-- end of input confirmation password --}}
 
                             @php
-                            $models = ['users','products','clients'];
+                            $models = ['users','products','clients','orders'];
                             $maps = ['create', 'read', 'update', 'delete'];
 
                             @endphp
