@@ -77,8 +77,8 @@ $(document).ready(function () {
     //list all order products
     $('.order-products').on('click', function (e) {
         e.preventDefault();
-
-        // $('#loading').css('display', 'flex');
+        $("#card-print-fatwra").removeClass('d-none')
+        $('#table-print-loding').css('display', 'flex');
 
         var url = $(this).data('url');
         var method = $(this).data('method');
@@ -87,12 +87,13 @@ $(document).ready(function () {
             method: method,
             success: function (data) {
 
-                // $('#loading').css('display', 'none');
+                $('#table-print-loding').css('display', 'none');
                 $('#order-product-list').empty();
                 $('#order-product-list').append(data);
 
             }
         })
+        $("#btn-print-fatwra").removeClass('d-none')
 
     });//end of order products click
 

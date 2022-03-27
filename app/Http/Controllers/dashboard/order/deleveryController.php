@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class deleveryController extends Controller
 {
+
     public function index(delevery $delevery)
     {
     $orders = order::where('states','equip')->get();
@@ -30,7 +31,6 @@ class deleveryController extends Controller
 
     return view('dashboard.orders.delevery._show', compact('orders','delevery'));
     }//end of show
-
 
 
 

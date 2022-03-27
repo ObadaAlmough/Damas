@@ -51,7 +51,14 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive ">
+                    <div class="text-center mg-b-20" style="display: none" id="table-orders-loading">
+                        <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                        </div>
+
                     <table class="table table-striped mg-b-0 text-md-nowrap" id="table-orders">
+
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -104,6 +111,12 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive ">
+                    <div class="text-center mg-b-20" style="display: none" id="order-delevery-loading">
+                        <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                        </div>
+                        </div>
+
                     <table class="table table-striped mg-b-0 text-md-nowrap" id="order-delevery">
                         <thead>
                             <tr>
@@ -124,7 +137,7 @@
                                 <td>{{$order->client->phone}}</td>
                                 <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->work_notes}}</td>
                                 <td>
-                                   
+
 
                                          <button class="btn btn-danger btn-sm add_orders delete_orders" data-method="get"
                                          data-url="{{url("dashboard/orders/delevery/delete/{$delevery->id}/{$order->id}")}}"

@@ -44,7 +44,7 @@
                             <button class="btn btn-outline-success my-2 my-sm-0 form-control" type="submit">{{__('web.search')}}</button>
                         </form>
                         <div class="m-2 my-sm-0 ">
-                            <a href="{{url('dashboard/order/create')}}" class="form-control btn btn-outline-primary ">
+                            <a href="{{url('dashboard/order/client')}}" class="form-control btn btn-outline-primary ">
                                 {{__("web.add")}}
                             </a>
                         </div>
@@ -107,18 +107,26 @@
     </div>
     <!--/div-->
      <!--div-->
-     <div class="col-xl-4">
+     <div class="col-xl-4 d-none" id="card-print-fatwra">
         <div class="card">
+
+        <div class="text-center m-5 mg-b-20 " style="display: none" id="table-print-loding">
+            <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+            </div>
+            </div>
+            {{-- loading --}}
             <div class="card-header pb-0">
 
             </div>
             <div class="card-body">
                 <div id="order-product-list">
-                    
+
                 </div>
 
             </div><!-- bd -->
         </div><!-- bd -->
+        <button type="button"  class="btn btn-primary btn-lg btn-block d-none" id="btn-print-fatwra"> Print </button>
     </div>
     <!--/div-->
 
@@ -211,4 +219,33 @@
 
 </script>
 {{-- //NOTY --}}
+
+
+
+<!--Internal  printThis.js -->
+<script src="{{ URL::asset('assets/plugins/printThis/printThis.js') }}"></script>
+
+<script>
+    $(document).ready(function() {
+
+        //print order
+        $(document).on('click', '#btn-print-fatwra', function(e) {
+            e.preventDefault();
+
+
+            $(`#order-product-list`).printThis({
+                header:
+             "<h1 style='font-size:24px;text-align:center;'><b>Damas Dry Clean</b></h1>"+
+             "<h1 style='font-size:24px;text-align:center;'><b>مغسلة دمشق</b></h1>",
+                footer:
+                "<p>Please rote and review your order </p>"+
+                "<p>Thank You</p>"
+
+            });
+
+
+        });
+    });
+
+</script>
 @endsection

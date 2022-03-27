@@ -5,22 +5,22 @@ $(document).ready(function () {
     $('#show_orders').on('click', function (e) {
 
         e.preventDefault();
-              // $('#loading').css('display', 'flex');
-              var search = $("input[name=search]").val();
-              var url = $(this).data('url');
-              var method = $(this).data('method');
+        $('#table-orders-loading').css('display', 'flex');
+        var search = $("input[name=search]").val();
+        var url = $(this).data('url');
+        var method = $(this).data('method');
 
-              $.ajax({
-                  url: url,
-                  method: method,
-                  data:{search:search},
-                  success: function (data) {
-                      // $('#loading').css('display', 'none');
-                      $('#table-orders').empty();
-                      $('#table-orders').append(data);
+        $.ajax({
+            url: url,
+            method: method,
+            data: { search: search },
+            success: function (data) {
+                $('#table-orders-loading').css('display', 'none');
+                $('#table-orders').empty();
+                $('#table-orders').append(data);
 
-                  }
-              })
+            }
+        })
 
 
 
@@ -31,12 +31,12 @@ $(document).ready(function () {
 
 
 
-       //add orders in delevery
-       $('.add_orders').on('click', function (e) {
+    //add orders in delevery
+    $('.add_orders').on('click', function (e) {
 
         e.preventDefault();
 
-        // $('#loading').css('display', 'flex');
+        $('#order-delevery-loading').css('display', 'flex');
         var url = $(this).data('url');
         var method = $(this).data('method');
 
@@ -46,7 +46,7 @@ $(document).ready(function () {
             success: function (data) {
                 // console.log(data)
 
-                // $('#loading').css('display', 'none');
+                $('#order-delevery-loading').css('display', 'none');
                 $('#order-delevery').empty();
                 $('#order-delevery').append(data);
 
@@ -63,34 +63,32 @@ $(document).ready(function () {
 
 
 
-     //delete orders in delevery
-     $('.delete_orders').on('click', function (e) {
+    //delete orders in delevery
+    $('.delete_orders').on('click', function (e) {
 
         e.preventDefault();
 
-        // $('#loading').css('display', 'flex');
+        $('#table-orders-loading').css('display', 'flex');
         // var search = $("input[name=search]").val();
         var url = $(this).data('url');
         var method = $(this).data('method');
 
+
         $.ajax({
             url: url,
             method: method,
-            // data:{search:search},
-            success: function (data) {
-
-                // $('#loading').css('display', 'none');
+        })
+            .done(function (data) {
+                $('#table-orders-loading').css('display', 'none');
                 $('#table-orders').empty();
                 $('#table-orders').append(data);
+            });
 
-            }
 
-        })
-
-        $(this).closest('tr').remove();
 
 
     });//delete orders in delevery
+
 
 
 

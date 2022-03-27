@@ -10,7 +10,7 @@
 </thead>
 <tbody>
     @foreach ($orders as $index=>$order)
-    <tr class="tr">
+    <tr>
         <th scope="row">{{$index+1}}</th>
         <td>{{$order->client->name}}</td>
         <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->Bulding()}}</td>
@@ -20,8 +20,6 @@
             <button class="btn btn-danger btn-sm add_orders" data-method="get"
             data-url="{{url("dashboard/orders/delevery/add_order/{$delevery->id}/{$order->id}")}}"
                  role="button">{{__('web.add')}}</button>
-
-
         </td>
 
 

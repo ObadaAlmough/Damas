@@ -17,9 +17,9 @@
         <td>{{$order->client->phone}}</td>
         <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->work_notes}}</td>
         <td>
-           
 
-                 <button class="btn btn-danger btn-sm add_orders" data-method="get"
+
+                 <button class="btn btn-danger btn-sm add_orders delete_orders" data-method="get"
                  data-url="{{url("dashboard/orders/delevery/delete/{$delevery->id}/{$order->id}")}}"
                       role="button">{{__('web.delete')}}</button>
         </td>

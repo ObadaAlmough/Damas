@@ -119,6 +119,13 @@
                 {{in_array($map,$maps_order)? '' : 'd-none'}}
 
                 ">
+
+                <div class="text-center m-5 mg-b-20 " style="display: none" id="table-print-loding">
+                    <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                    </div>
+                    </div>
+                    {{-- loading --}}
                     <thead>
                         <tr>
                             <th>{{__("web.$map")}}</th>
