@@ -95,20 +95,14 @@
 
         </div>
         <div class="card-body pt-0 overflow-auto" id="print-table">
-            <form id="fatwra" action="{{url("dashboard/order/store")}}" method="post">
+            <form id="fatwra" action="{{url("dashboard/order/update/{$order->id}")}}" method="post">
                 @csrf
                 <input type="hidden" name="order" value="{{$order->id}}">
 
                 @foreach ($maps as $map)
 
                 <div class="table table-{{$map}} table-fatwra
-                {{in_array($map,$maps_order)? '' : 'd-none'}}
-
-
-
-                "
-
-                >
+                {{in_array($map,$maps_order)? '' : 'd-none'}}">
 
                     <div class="d-flex justify-content-between">
                         <h4>{{$client->name??''}}</h4>
@@ -123,7 +117,7 @@
 
                 <table class="table table-{{$map}}
                 {{in_array($map,$maps_order)? '' : 'd-none'}}
-                
+
                 ">
                     <thead>
                         <tr>
@@ -137,6 +131,7 @@
                             <td>{{$product->name}}</td>
                             <td>
                                 <input type="hidden" name="price[]" value="{{$product->pivot->price}}">
+                                 <input type="hidden" name="map[]" value="{{$product->pivot->map}}">
                                 <input type="hidden" name="products[]" value="{{$product->pivot->product_id}}">
                                 <input type="number" name="quantity[]" data-price="${price}" class="form-control input-sm product-quantity" min="1" value="{{$product->pivot->quantity}}"></td>
                             <td class="product-price">{{$product->pivot->price}}</td>

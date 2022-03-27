@@ -7,7 +7,9 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\dashboard\orderController;
 use App\Http\Controllers\dashboard\clientController;
 use App\Http\Controllers\dashboard\productController;
+use App\Http\Controllers\dashboard\deleveryController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+use App\Http\Controllers\dashboard\order\deleveryController as order_delevery;
 
 
 
@@ -59,6 +61,27 @@ Route::group([
         Route::post('order/update/{order}', [orderController::class, 'update'])->middleware(['permission:update_orders']);
         Route::get('order/delete/{order}', [orderController::class, 'delete'])->middleware(['permission:delete_orders']);
         //orders
+
+
+        Route::get('delevery/', [deleveryController::class, 'index'])->middleware(['permission:read_deleverys']);
+        Route::get('delevery/create', [deleveryController::class, 'create'])->middleware(['permission:create_deleverys']);
+        Route::post('delevery/store', [deleveryController::class, 'store'])->middleware(['permission:create_deleverys']);
+        Route::get('delevery/edit/{delevery}', [deleveryController::class, 'edit'])->middleware(['permission:update_deleverys']);
+        Route::post('delevery/update/{delevery}', [deleveryController::class, 'update'])->middleware(['permission:update_deleverys']);
+        Route::get('delevery/delete/{delevery}', [deleveryController::class, 'delete'])->middleware(['permission:delete_deleverys']);
+        //deleverys
+
+
+        Route::get('orders/delevery/{delevery}', [order_delevery::class, 'index'])->middleware(['permission:read_deleverys']);
+        Route::get('orders/delevery/{delevery}/show', [order_delevery::class, 'show'])->middleware(['permission:read_deleverys']);
+        Route::get('orders/delevery/add_order/{delevery}/{order}', [order_delevery::class, 'add_order'])->middleware(['permission:create_deleverys']);
+        Route::get('orders/delevery/delete/{delevery}/{order}', [order_delevery::class, 'delete'])->middleware(['permission:delete_deleverys']);
+        //////
+        Route::post('orders/delevery/store', [order_delevery::class, 'store'])->middleware(['permission:create_deleverys']);
+        Route::get('orders/delevery/edit/{delevery}', [order_delevery::class, 'edit'])->middleware(['permission:update_deleverys']);
+        Route::post('orders/delevery/update/{delevery}', [order_delevery::class, 'update'])->middleware(['permission:update_deleverys']);
+        Route::get('orders/delevery/delete/{delevery}', [order_delevery::class, 'delete'])->middleware(['permission:delete_deleverys']);
+        //deleverys
 
 
     });

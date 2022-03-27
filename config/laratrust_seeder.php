@@ -17,6 +17,8 @@ return [
             'products' => 'c,r,u,d',
             'clients' => 'c,r,u,d',
             'orders' => 'c,r,u,d',
+            'deleverys' => 'c,r,u,d',
+
 
 
 

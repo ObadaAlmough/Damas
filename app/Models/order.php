@@ -13,14 +13,21 @@ class order extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'order_product')->withPivot('quantity','price','map')->withTimestamps();
+        return $this->belongsToMany(Product::class, 'order_product')->withPivot('quantity', 'price', 'map')->withTimestamps();
     }
 
     public function client()
     {
         return $this->belongsTo(client::class);
     }
-    public function getCreatedAtAttribute($timestamp) {
+
+    public function delevery()
+    {
+        return $this->belongsTo(delevery::class);
+    }
+
+    public function getCreatedAtAttribute($timestamp)
+    {
         return \Carbon\Carbon::parse($timestamp)->format('M d, Y');
     }
 }

@@ -101,6 +101,7 @@
                                     </button>
 
                                     <form action="{{url("dashboard/add-order/create")}}" method="get" id="form-{{$client->id}}">
+                                        {{-- <input type="hidden" name="delevery_id" value="1"> --}}
                                         <input type="hidden" name="client_id" value="{{$client->id}}">
 
                                     </form>
