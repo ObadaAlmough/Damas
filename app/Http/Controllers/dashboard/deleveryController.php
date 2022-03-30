@@ -10,7 +10,7 @@ class deleveryController extends Controller
 {
     public function index(Request $request)
     {
-        $deleverys = delevery::select('id','name')->get();
+        $deleverys = delevery::select('id', 'name')->get();
         return view('dashboard.delevery.index', compact('deleverys'));
     } //end of index
 

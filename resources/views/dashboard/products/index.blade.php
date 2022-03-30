@@ -41,11 +41,11 @@
                     <h4 class="card-title mg-b-0">STRIPED ROWS</h4>
                     <div class="row">
                         <form method="get" action="{{url('/dashboard/product')}}" class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0 form-control" type="submit">{{__('web.search')}}</button>
+                            <input class="form-control  mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0  " type="submit">{{__('web.search')}}</button>
                         </form>
                             <div class="m-2 my-sm-0 ">
-                                <a href="{{url('dashboard/product/create')}}" class="form-control btn btn-outline-primary " >
+                                <a href="{{url('dashboard/product/create')}}" class="  btn btn-outline-primary " >
                                     {{__("web.add")}}
                                     </a>
                             </div>

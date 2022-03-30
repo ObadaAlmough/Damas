@@ -14,7 +14,6 @@ class clientController extends Controller
 {
     public function index(Request $request)
     {
-        $district = district::all();
 
         $clients = Client::where(function ($q) use ($request) {
 
@@ -27,6 +26,9 @@ class clientController extends Controller
         })->when($request->district_id, function ($q) use ($request) {
             $q->where('district_id', $request->district_id);
         })->latest()->paginate(6);
+
+        $district = district::all();
+
         return view('dashboard.clients.index', compact('clients', 'district'));
     } //end of index
 
@@ -58,35 +60,35 @@ class clientController extends Controller
     public function edit(Client $client)
     {
         $data['district'] = district::all();
-        $data['orders'] = order::where('client_id', $client->id)->whereMonth('created_at' ,Carbon::now()->year())->get();
-        $data['orderSum'] = order::where('client_id',$client->id)->select(
+        $data['orders'] = order::where('client_id', $client->id)->whereMonth('created_at', Carbon::now()->year())->get();
+        $data['orderSum'] = order::where('client_id', $client->id)->select(
             DB::raw('SUM(total_price) as sum')
         )->get();
         /* end sum */
 
         foreach ($data['orders'] as $order) {
-            $data['sumProduct'] = 0 ;
-            $data['mapLandry'] = 0 ;
-            $data['mapIron'] = 0 ;
-            $data['mapOther'] = 0 ;
+            $data['sumProduct'] = 0;
+            $data['mapLandry'] = 0;
+            $data['mapIron'] = 0;
+            $data['mapOther'] = 0;
 
-            foreach( $order->products as $product){
+            foreach ($order->products as $product) {
                 $data['sumProduct'] += $product->pivot->quantity;
 
                 if ($product->pivot->map == 'landry') {
                     # code...
                     $data['mapLandry'] += 1;
-                }elseif( $product->pivot->map == 'iron'){
+                } elseif ($product->pivot->map == 'iron') {
 
                     $data['mapIron'] += 1;
-                }else{$data['mapOther'] += 1;}
+                } else {
+                    $data['mapOther'] += 1;
+                }
             };
-
-            };
+        };
         /* end of foreach find map */
 
-            return view('dashboard.clients.edit', compact('client'))->with($data);
-
+        return view('dashboard.clients.edit', compact('client'))->with($data);
     } //end of edit
 
 

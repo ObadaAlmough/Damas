@@ -53,9 +53,9 @@
                             </div>
                             {{-- //district select --}}
 
-                            <button class="btn btn-outline-success my-2 my-sm-0 form-control" type="submit">{{__('web.search')}}</button>
+                            <button class="btn btn-success my-2 my-sm-0 " type="submit">{{__('web.search')}}</button>
                             <div class="m-2 my-sm-0 ">
-                                <a href="{{url('dashboard/client/create')}}" class="form-control btn btn-outline-primary ">
+                                <a href="{{url('dashboard/client/create')}}" class=" btn btn-primary ">
                                     {{__("web.add")}}
                                 </a>
                             </div>

@@ -24,7 +24,7 @@ $(document).ready(function () {
                 <td><button class="btn btn-danger btn-block remove-product-btn" data-id="${id}" data-map="${map}"><span class="fa fa-trash"></span></button></td>
             </tr>`;
 
-            $('.table-fatwra').find('tbody').empty()
+        $('.table-fatwra').find('tbody').empty()
 
         $(`.order-${map}`).append(html);
 
@@ -97,6 +97,27 @@ $(document).ready(function () {
 
     });//end of order products click
 
+
+  /*   //  states order
+    $('.states-order').on('click', function (e) {
+        e.preventDefault();
+
+        var url = $(this).data('url');
+        var method = $(this).data('method');
+        var data = "equip";
+        $.ajax({
+            url: url,
+            method: method,
+
+            success: function (data) {
+
+
+
+            }
+        })
+
+
+    });//end of states order click */
 
 
 });//end of document ready

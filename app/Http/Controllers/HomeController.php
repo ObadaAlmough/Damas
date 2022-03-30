@@ -24,9 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $orders =  order::where('states',null)->get();
+        $orders =  order::get();
 
 
-        return view('home',compact('orders'));
+        return view('home', compact('orders'));
     }
 }

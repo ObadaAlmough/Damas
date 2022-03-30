@@ -30,7 +30,6 @@
 <!-- row opened -->
 <div class="row row-sm">
 
-    <!--/div-->
 
     <!--div-->
     <div class="col-xl-6" >
@@ -40,63 +39,41 @@
                     <h4 class="card-title mg-b-0"> TRIPED ROWS</h4>
                     <div class="row">
                         <form method="get" action="{{url("/dashboard/orders/delevery/$delevery->id/show")}}" class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2"  name="search" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0 form-control" data-url="{{url("dashboard/orders/delevery/$delevery->id/show")}}" data-method="get" id="show_orders" type="submit">{{__('web.search')}}</button>
+                            <input class="  mr-sm-2"  name="search" type="search" placeholder="Search" aria-label="Search">
+
+                            <button class="btn btn-success my-2 my-sm-0  "
+                                    data-url="{{url("dashboard/orders/delevery/$delevery->id/show")}}"
+                                    data-method="get"
+                                    id="btn-search-orders"
+                                    type="submit">
+
+                                    {{__('web.search')}}
+
+                            </button>
                         </form>
-
                     </div>
-
-
                 </div>
             </div>
+            {{-- //header search--}}
             <div class="card-body">
                 <div class="table-responsive ">
                     <div class="text-center mg-b-20" style="display: none" id="table-orders-loading">
                         <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                         </div>
-                        </div>
+                    </div>
 
                     <table class="table table-striped mg-b-0 text-md-nowrap" id="table-orders">
 
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{__("web.name")}}</th>
-                                <th>{{__("web.adress")}}</th>
-                                <th>{{__("web.phone")}}</th>
-                                <th>{{__("web.work_notes")}}</th>
-                                <th>{{__("web.action")}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($orders as $index=>$order)
-                            <tr>
-                                <th scope="row">{{$index+1}}</th>
-                                <td>{{$order->client->name}}</td>
-                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->Bulding()}}</td>
-                                <td>{{$order->client->phone}}</td>
-                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->work_notes}}</td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm add_orders" data-method="get"
-                                    data-url="{{url("dashboard/orders/delevery/add_order/{$delevery->id}/{$order->id}")}}"
-                                         role="button">{{__('web.add')}}</button>
-                                </td>
+                        @include('dashboard.orders.delevery._table-orders')
 
-
-                            </tr>
-
-                            @endforeach
-
-                        </tbody>
                     </table>
-                    {{-- end of table --}}
-                </div><!-- bd -->
 
+                </div>{{-- end of table orders--}}
 
-            </div><!-- bd -->
-        </div><!-- bd -->
-    </div>
+            </div><!-- bd card body-->
+        </div><!-- bd card -->
+    </div>{{-- col-6 --}}
     <!--/div-->
      <!--div-->
      <div class="col-xl-6" >
@@ -104,64 +81,28 @@
             <div class="card-header pb-0">
                 <div class="d-flex justify-content-between">
                     <h4 class="card-title mg-b-0"> TRIPED ROWS</h4>
-
-
-
                 </div>
-            </div>
+            </div>{{--// header --}}
             <div class="card-body">
                 <div class="table-responsive ">
-                    <div class="text-center mg-b-20" style="display: none" id="order-delevery-loading">
+                    <div class="text-center mg-b-20" style="display: none" id="table-delevery-order-loading">
                         <div class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                         </div>
-                        </div>
+                    </div>
 
-                    <table class="table table-striped mg-b-0 text-md-nowrap" id="order-delevery">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>{{__("web.name")}}</th>
-                                <th>{{__("web.adress")}}</th>
-                                <th>{{__("web.phone")}}</th>
-                                <th>{{__("web.work_notes")}}</th>
-                                <th>{{__("web.action")}}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($orders_Delevery as $index=>$order)
-                            <tr class="tr">
-                                <th scope="row">{{$index+1}}</th>
-                                <td>{{$order->client->name}}</td>
-                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->Bulding()}}</td>
-                                <td>{{$order->client->phone}}</td>
-                                <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->work_notes}}</td>
-                                <td>
+                    <table class="table table-striped mg-b-0 text-md-nowrap" id="table-delevery-order">
 
+                     @include("dashboard.orders.delevery._table-delevery-order")
 
-                                         <button class="btn btn-danger btn-sm add_orders delete_orders" data-method="get"
-                                         data-url="{{url("dashboard/orders/delevery/delete/{$delevery->id}/{$order->id}")}}"
-                                              role="button">{{__('web.delete')}}</button>
-                                </td>
+                    </table>{{-- end of table delevery order --}}
 
-
-                            </tr>
-
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                    {{-- end of table --}}
                 </div><!-- bd -->
-
-
             </div><!-- bd -->
-        </div><!-- bd -->
-    </div>
+        </div><!-- bd card-->
+    </div>{{-- //col-6 --}}
     <!--/div-->
     <!--/div-->
-
-
 
 
 </div>

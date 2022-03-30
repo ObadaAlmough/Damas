@@ -54,6 +54,7 @@ Route::group([
 
         Route::get('order/', [orderController::class, 'index'])->middleware(['permission:read_orders']);
         Route::get('order/{client}/{order}', [orderController::class, 'products'])->middleware(['permission:read_orders']);//show product
+        Route::get('orders/states/{order}', [orderController::class, 'states'])->middleware(['permission:create_orders']);//states
         Route::get('order/create/{client}/{order}', [orderController::class, 'create'])->middleware(['permission:create_orders']);
         Route::get('add-order/create', [orderController::class, 'addOrder'])->middleware(['permission:create_orders']);//add order
         Route::post('order/store', [orderController::class, 'store'])->middleware(['permission:create_orders']);
@@ -74,13 +75,9 @@ Route::group([
 
         Route::get('orders/delevery/{delevery}', [order_delevery::class, 'index'])->middleware(['permission:read_deleverys']);
         Route::get('orders/delevery/{delevery}/show', [order_delevery::class, 'show'])->middleware(['permission:read_deleverys']);
-        Route::get('orders/delevery/add_order/{delevery}/{order}', [order_delevery::class, 'add_order'])->middleware(['permission:create_deleverys']);
+        Route::get('orders/delevery/add_order_delevery/{delevery}/{order}', [order_delevery::class, 'add_order_delevery'])->middleware(['permission:create_deleverys']);
         Route::get('orders/delevery/delete/{delevery}/{order}', [order_delevery::class, 'delete'])->middleware(['permission:delete_deleverys']);
-        //////
-        Route::post('orders/delevery/store', [order_delevery::class, 'store'])->middleware(['permission:create_deleverys']);
-        Route::get('orders/delevery/edit/{delevery}', [order_delevery::class, 'edit'])->middleware(['permission:update_deleverys']);
-        Route::post('orders/delevery/update/{delevery}', [order_delevery::class, 'update'])->middleware(['permission:update_deleverys']);
-        Route::get('orders/delevery/delete/{delevery}', [order_delevery::class, 'delete'])->middleware(['permission:delete_deleverys']);
+
         //deleverys
 
 

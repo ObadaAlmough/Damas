@@ -15,12 +15,14 @@ class orderController extends Controller
 {
     public function index(Request $request)
     {
-        $orders = order::where(function ($q) use ($request) {
+        $orders = order::whereHas('client', function ($q) use ($request) {
+            return $q->where(function ($q) use ($request) {
 
             return $q->when($request->search, function ($query) use ($request) {
 
                 return $query->where('name', 'like', '%' . $request->search . '%');
             });
+        });
         })->latest()->paginate(6);
         return view('dashboard.orders.index', compact('orders'));
     } //end of index
@@ -103,6 +105,23 @@ class orderController extends Controller
     } //end of delet
 
 
+
+    public function states(order $order)
+    {
+
+        if ($order->states != "complete") {
+
+            $order->update([
+                'states' => 'complete'
+            ]);
+        }else{
+
+            $order->update([
+                'states' => 'equip'
+            ]);
+        }
+        return redirect()->back();
+    } //end of states
 
 
 
