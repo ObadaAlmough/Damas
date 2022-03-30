@@ -40,11 +40,11 @@
                     <h4 class="card-title mg-b-0"> {{$orders->total()}}-STRIPED ROWS</h4>
                     <div class="row">
                         <form method="get" action="{{url('/dashboard/order')}}" class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0 form-control" type="submit">{{__('web.search')}}</button>
+                            <input class="form-control  mr-sm-2" name="search" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-success my-2 my-sm-0  " type="submit">{{__('web.search')}}</button>
                         </form>
                         <div class="m-2 my-sm-0 ">
-                            <a href="{{url('dashboard/order/client')}}" class="form-control btn btn-outline-primary ">
+                            <a href="{{url('dashboard/order/client')}}" class="  btn btn-primary ">
                                 {{__("web.add")}}
                             </a>
                         </div>
@@ -77,19 +77,43 @@
                                 <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->Bulding()}}</td>
                                 <td>{{$order->client->condition}}</td>
                                 <td style="width: 10rem" class="d-inline-block text-truncate">{{$order->client->work_notes}}</td>
-                                <td>{{$order->states}}</td>
-                                <td>
-                                    <a class="btn btn-primary btn-sm" href="{{url("dashboard/order/edit/$order->client_id/$order->id")}}" role="button">{{__('web.edit')}}</a>
-                                    <a class="btn btn-danger btn-sm swal-warning" href="javascript:void(0)" data-id="{{$order->id}}" role="button">{{__('web.delete')}}</a>
-                                    <a class="btn btn-danger btn-sm order-products" href="" data-method="get" data-url="{{url("dashboard/order/{$order->client->id}/{$order->id}")}}"  role="button">{{__('web.show')}}</a>
+                                <td class="text-center">
+                                @if($order->states == null)
+                                <i class="fas fa-exclamation-circle text-danger fa-3x"></i>
 
-                                    <a data-address="{{$order->client->Bulding()}}" data-name="{{$order->client->name}}" data-phone="{{$order->phone}}" class="btn btn-success btn-sm swal-basic" role="button">{{__('web.Show')}}</a>
+                                @endif
+
+                                @if($order->states == 'equip')
+                                <a class="btn states-order"
+                                data-method="get"
+                                href="{{url("dashboard/orders/states/$order->id")}}">
+                                <i class="far fa-clock text-warning fa-3x"></i>
+                                 </a>
+                                @endif
+
+                                @if($order->states == "complete")
+                                <a class="btn states-order"
+                                data-method="get"
+                                href="{{url("dashboard/orders/states/$order->id")}}">
+                                <i class="far fa-check-circle text-success fa-3x"></i>
+                                </a>
+                                @endif
+
+                                @if($order->states == 'delevery')
+                                <i class="fas fa-motorcycle text-info fa-3x"></i>
+
+                                @endif
 
 
 
                                 </td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm" href="{{url("dashboard/order/edit/$order->client_id/$order->id")}}" role="button">{{__('web.edit')}}</a>
+                                    <a class="btn btn-danger btn-sm swal-warning" href="javascript:void(0)" data-id="{{$order->id}}" role="button">{{__('web.delete')}}</a>
+                                    <a class="btn btn-danger btn-sm order-products" data-method="get" data-url="{{url("dashboard/order/{$order->client->id}/{$order->id}")}}" role="button">{{__('web.show')}}</a>
 
-
+                                    <a data-address="{{$order->client->Bulding()}}" data-name="{{$order->client->name}}" data-phone="{{$order->phone}}" class="btn btn-success btn-sm swal-basic" role="button">{{__('web.Show')}}</a>
+                                </td>
                             </tr>
 
                             @endforeach
@@ -106,14 +130,14 @@
         </div><!-- bd -->
     </div>
     <!--/div-->
-     <!--div-->
-     <div class="col-xl-4 d-none" id="card-print-fatwra">
+    <!--div-->
+    <div class="col-xl-4 d-none" id="card-print-fatwra">
         <div class="card">
 
-        <div class="text-center m-5 mg-b-20 " style="display: none" id="table-print-loding">
-            <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-            </div>
+            <div class="text-center m-5 mg-b-20 " style="display: none" id="table-print-loding">
+                <div class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
             </div>
             {{-- loading --}}
             <div class="card-header pb-0">
@@ -126,7 +150,7 @@
 
             </div><!-- bd -->
         </div><!-- bd -->
-        <button type="button"  class="btn btn-primary btn-lg btn-block d-none" id="btn-print-fatwra"> Print </button>
+        <button type="button" class="btn btn-primary btn-lg btn-block d-none" id="btn-print-fatwra"> Print </button>
     </div>
     <!--/div-->
 
@@ -160,7 +184,6 @@
             swal({
                 title: name
                 , text: address,
-
             })
 
         });
@@ -234,12 +257,10 @@
 
 
             $(`#order-product-list`).printThis({
-                header:
-             "<h1 style='font-size:24px;text-align:center;'><b>Damas Dry Clean</b></h1>"+
-             "<h1 style='font-size:24px;text-align:center;'><b>مغسلة دمشق</b></h1>",
-                footer:
-                "<p>Please rote and review your order </p>"+
-                "<p>Thank You</p>"
+                header: "<h1 style='font-size:24px;text-align:center;'><b>Damas Dry Clean</b></h1>" +
+                    "<h1 style='font-size:24px;text-align:center;'><b>مغسلة دمشق</b></h1>"
+                , footer: "<p>Please rote and review your order </p>" +
+                    "<p>Thank You</p>"
 
             });
 

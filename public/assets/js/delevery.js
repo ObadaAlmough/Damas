@@ -2,9 +2,10 @@ $(document).ready(function () {
 
 
     //orders
-    $('#show_orders').on('click', function (e) {
+    $('#btn-search-orders').on('click', function (e) {
 
         e.preventDefault();
+
         $('#table-orders-loading').css('display', 'flex');
         var search = $("input[name=search]").val();
         var url = $(this).data('url');
@@ -15,6 +16,7 @@ $(document).ready(function () {
             method: method,
             data: { search: search },
             success: function (data) {
+
                 $('#table-orders-loading').css('display', 'none');
                 $('#table-orders').empty();
                 $('#table-orders').append(data);
@@ -36,7 +38,7 @@ $(document).ready(function () {
 
         e.preventDefault();
 
-        $('#order-delevery-loading').css('display', 'flex');
+        $('#table-delevery-order-loading').css('display', 'flex');
         var url = $(this).data('url');
         var method = $(this).data('method');
 
@@ -44,15 +46,9 @@ $(document).ready(function () {
             url: url,
             method: method,
             success: function (data) {
-                // console.log(data)
-
-                $('#order-delevery-loading').css('display', 'none');
-                $('#order-delevery').empty();
-                $('#order-delevery').append(data);
-
-
-
-
+                $('#table-delevery-order-loading').css('display', 'none');
+                $('#table-delevery-order').empty();
+                $('#table-delevery-order').append(data);
 
             }
         })
@@ -62,32 +58,32 @@ $(document).ready(function () {
 
 
 
-
     //delete orders in delevery
-    $('.delete_orders').on('click', function (e) {
+    $('.delete_orders').on('click', function(e) {
 
         e.preventDefault();
 
         $('#table-orders-loading').css('display', 'flex');
-        // var search = $("input[name=search]").val();
+
         var url = $(this).data('url');
         var method = $(this).data('method');
 
-
         $.ajax({
-            url: url,
-            method: method,
-        })
-            .done(function (data) {
+            url: url ,
+            method: method ,
+
+            success: function(data) {
+
+
                 $('#table-orders-loading').css('display', 'none');
-                $('#table-orders').empty();
-                $('#table-orders').append(data);
-            });
+                $('#table-orders').html(data);
+            }
+        });
+        $(this).closest('tr').remove();
 
 
 
-
-    });//delete orders in delevery
+    }); //delete orders in delevery
 
 
 

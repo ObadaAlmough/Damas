@@ -42,7 +42,7 @@
                     <div class="row">
 
                         <div class="m-2 my-sm-0 ">
-                            <a href="{{url('dashboard/delevery/create')}}" class="form-control btn btn-outline-primary ">
+                            <a href="{{url('dashboard/delevery/create')}}" class="  btn btn-primary ">
                                 {{__("web.add")}}
                             </a>
                         </div>
